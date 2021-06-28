@@ -1,0 +1,93 @@
+<div>
+    <p>INSERTION SORT: algoritmo per ordinare elementi di piccole dimensioni.</p>
+
+    <label for="numbers">Indica quantità di numeri da generare(default 10 mila)</label>
+    <input type="number" name="numbers" id="numbers">
+    <button id="generate-numbers" onclick="generateNumbers()" > Clicca qui per generare numeri casuali </button>
+    <div>
+        <pre>
+            <p id="random-number" style="width: 250px;">
+
+            </p>
+        </pre>
+    </div>
+    <button id="order-numbers" onclick="onClick()" >Clicca qui per ordinarli con MERGE SORT</button>
+    <!-- <button id="order-numbers" onclick="insertSortAsc()" >Clicca qui per ordinarli ASC</button> -->
+    <p id="time"></p>
+    <div id="ordered-number">
+
+    </div>
+</div>
+<script>
+    var array = [];
+    
+    function generateNumbers(){
+
+        let elementsToGenerate = document.getElementById('numbers').value || 10000;
+
+        array = Array.from({length: elementsToGenerate}, () => Math.floor(Math.random() * elementsToGenerate));
+
+        let displayNumbers = document.getElementById('random-number').innerHTML = JSON.stringify(array);
+
+
+    }
+
+    function onClick(){
+
+        let sorted =mergeSort(array);
+        
+        console.table(sorted);
+    }
+
+
+    function mergeSort (unsortedArray) {
+        // No need to sort the array if the array only has one element or empty
+        if (unsortedArray.length <= 1) {
+            
+            return unsortedArray;
+        }
+    
+        // In order to divide the array in half, we need to figure out the middle
+        const middle = Math.floor(unsortedArray.length / 2);
+
+        // This is where we will be dividing the array into left and right
+        const left = unsortedArray.slice(0, middle);
+        const right = unsortedArray.slice(middle);
+        
+        // Using recursion to combine the left and right
+        let result = merge(
+            mergeSort(left), mergeSort(right)
+        );
+        
+        return result;
+    }
+
+    // Merge the two arrays: left and right
+    function merge (left, right) {
+        let resultArray = [], leftIndex = 0, rightIndex = 0;
+        
+        // We will concatenate values into the resultArray in order
+        while (leftIndex < left.length && rightIndex < right.length) {
+
+            if (left[leftIndex] < right[rightIndex]) {
+
+                resultArray.push(left[leftIndex]);
+                leftIndex++; // move left array cursor
+
+            } else {
+
+                resultArray.push(right[rightIndex]);
+                rightIndex++; // move right array cursor
+
+            }
+        }
+
+        // We need to concat here because there will be one element remaining
+        // from either left OR the right
+        return resultArray
+            .concat(left.slice(leftIndex))
+            .concat(right.slice(rightIndex));
+    }
+
+    
+</script>

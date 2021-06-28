@@ -1,0 +1,55 @@
+<div>
+    <p>ESERCIZIO RICERCA LINEARE: algoritmo per cerca un elemento V in un array.</p>
+
+    <label for="numbers">Indica quantità di numeri da generare(default 10 mila)</label>
+    <input type="number" name="numbers" id="numbers">
+    <label for="tofind">Indica il valore da cercare</label>
+    <input type="text" name="tofind" id="tofind" required>
+    <button id="generate-numbers" onclick="generateNumbers()" > Clicca qui per generare numeri casuali </button>
+    
+    <div>
+        <pre>
+            <p id="random-number" style="width: 250px;">
+
+            </p>
+        </pre>
+    </div>
+    <button id="order-numbers" onclick="searchInArray()" >Clicca qui per cercare</button>
+    <p id="item-index"></p>
+
+</div>
+<script>
+    var array = [];
+
+    function generateNumbers(){
+
+        let elementsToGenerate = document.getElementById('numbers').value || 10000;
+        
+        array = Array.from({length: elementsToGenerate}, () => Math.floor(Math.random() * elementsToGenerate));
+
+        let displayNumbers = document.getElementById('random-number').innerHTML = JSON.stringify(array);
+        
+    }
+
+    function searchInArray(){
+
+        let elementsToFind = document.getElementById('tofind').value;
+        let occurences = 0;
+        for(let i = 0; i < array.length; i++){
+
+            let currElement = array[i];
+            
+
+            if(parseInt(currElement) == elementsToFind){
+
+                occurences++;
+            }
+
+
+
+        }
+
+        document.getElementById('item-index').innerHTML = `${elementsToFind} found ${occurences} times`;
+
+    }
+</script>

@@ -1,0 +1,146 @@
+<div>
+    <p>INSERTION SORT: algoritmo per ordinare elementi di piccole dimensioni.</p>
+
+    <label for="numbers">Indica quantità di numeri da generare(default 10 mila)</label>
+    <input type="number" name="numbers" id="numbers">
+    <button id="generate-numbers" onclick="generateNumbers()" > Clicca qui per generare numeri casuali </button>
+    <div>
+        <pre>
+            <p id="random-number" style="width: 250px;">
+
+            </p>
+        </pre>
+    </div>
+    <button id="order-numbers" onclick="insertSortDesc()" >Clicca qui per ordinarli DESC</button>
+    <button id="order-numbers" onclick="insertSortAsc()" >Clicca qui per ordinarli ASC</button>
+    <p id="time"></p>
+    <div id="ordered-number">
+
+    </div>
+</div>
+<script>
+    var array = [];
+
+    function generateNumbers(){
+
+        let elementsToGenerate = document.getElementById('numbers').value || 10000;
+        
+        array = Array.from({length: elementsToGenerate}, () => Math.floor(Math.random() * elementsToGenerate));
+
+        let displayNumbers = document.getElementById('random-number').innerHTML = JSON.stringify(array);
+
+        
+    }
+
+    function insertSortDesc(){
+
+        
+        console.time('insertsort');
+
+        for(let j = 1; j < array.length; j++ ){
+
+            let element = array[j];
+
+            let i = j-1;
+
+            /*
+                recupero gli elementi precedenti all'elemento corrente
+                se l'elemento in posizione i è maggiore 
+                di quello corrente allora lo metto in posizione i +1
+                e vado avanti a cercare a sinistra gli elementi da ordinare,
+                ad ogni step il numero più grande di quello corrente viene spostato
+                alla posizione successiva e quello ordinato viene messo alla posizione
+                corretta
+            */
+
+            while (i >= 0 && array[i] > element) {
+                
+                array[i + 1] = array[i];
+                i -= 1;
+
+            }
+
+            /*
+                a questo punto l'elemento corrente viene messo alla posizione i +1,che,
+                nel caso in cui l'input in posizione j-1 è minore dell'elemento corrente 
+                ciclato dal for, corrisponde alla stessa posizione di prima, mentre invece
+                se l'input in posizione j-1 è maggiore dell'elemento corrente, allora
+                la variabile i sarà stata diminuita di 1 in base a quante volte la condizione
+                inputs[i] > currElement è vera e questo collocherà l'elemento nella sua 
+                posizione corretta. 
+            */
+            array[i + 1] = element;
+
+            
+            
+
+        }
+
+        /* let speed = console.timeEnd('insertsort'); */
+
+        console.timeEnd('insertsort');
+
+        console.table(array);
+
+        document.getElementById('ordered-number').innerHTML = JSON.stringify(array);
+
+        return true;
+        
+    }
+
+    function insertSortAsc(){
+
+        
+        console.time('insertsort');
+
+        for(let j = 1; j < array.length; j++ ){
+
+            let element = array[j];
+
+            let i = j-1;
+
+            /*
+                recupero gli elementi precedenti all'elemento corrente
+                se l'elemento in posizione i è minore 
+                di quello corrente allora lo metto in posizione i +1
+                e vado avanti a cercare a sinistra gli elementi da ordinare,
+                ad ogni step il numero più piccolo di quello corrente viene spostato
+                alla posizione successiva e quello ordinato viene messo alla posizione
+                corretta
+            */
+
+            while (i >= 0 && array[i] < element) {
+                
+                array[i + 1] = array[i];
+                i -= 1;
+
+            }
+
+            /*
+                a questo punto l'elemento corrente viene messo alla posizione i +1,che,
+                nel caso in cui l'input in posizione j-1 è minore dell'elemento corrente 
+                ciclato dal for, corrisponde alla stessa posizione di prima, mentre invece
+                se l'input in posizione j-1 è minore dell'elemento corrente, allora
+                la variabile i sarà stata diminuita di 1 in base a quante volte la condizione
+                inputs[i] < currElement è vera e questo collocherà l'elemento nella sua 
+                posizione corretta. 
+            */
+            array[i + 1] = element;
+
+
+
+
+        }
+
+        /* let speed = console.timeEnd('insertsort'); */
+
+        console.timeEnd('insertsort');
+
+        console.table(array);
+
+        document.getElementById('ordered-number').innerHTML = JSON.stringify(array);
+
+        return true;
+
+    }
+</script>
