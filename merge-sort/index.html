@@ -1,5 +1,5 @@
 <div>
-    <p>INSERTION SORT: algoritmo per ordinare elementi di piccole dimensioni.</p>
+    <p>MERGE SORT: algoritmo per ordinare elementi.</p>
 
     <label for="numbers">Indica quantità di numeri da generare(default 10 mila)</label>
     <input type="number" name="numbers" id="numbers">
@@ -41,20 +41,21 @@
 
 
     function mergeSort (unsortedArray) {
-        // No need to sort the array if the array only has one element or empty
+
+        // se l'array ha solo 1 elemento o è vuoto non ha senso ordinarlo
         if (unsortedArray.length <= 1) {
             
             return unsortedArray;
         }
     
-        // In order to divide the array in half, we need to figure out the middle
+        // prendiamo l'elemento in mezzo
         const middle = Math.floor(unsortedArray.length / 2);
 
-        // This is where we will be dividing the array into left and right
+        // dividiamo l'array in due
         const left = unsortedArray.slice(0, middle);
         const right = unsortedArray.slice(middle);
         
-        // Using recursion to combine the left and right
+        // combiniamo i due nuovi array usando la ricorsione
         let result = merge(
             mergeSort(left), mergeSort(right)
         );
